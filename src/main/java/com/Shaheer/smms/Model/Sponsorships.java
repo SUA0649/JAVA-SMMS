@@ -1,5 +1,6 @@
 package com.Shaheer.smms.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -19,10 +20,11 @@ public class Sponsorships {
     @Enumerated(EnumType.STRING)
     private Types Type;
 
-
+    @JsonIgnore
     @OneToMany(mappedBy = "Referal_id",cascade = CascadeType.ALL)
     private List<Invoices> invoices;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(name="Campaign_Sponsorships"
             ,joinColumns = @JoinColumn(name="Sponsor_id"),

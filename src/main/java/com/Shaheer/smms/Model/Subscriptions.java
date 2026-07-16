@@ -1,5 +1,6 @@
 package com.Shaheer.smms.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.sql.Date;
@@ -16,6 +17,7 @@ public class Subscriptions {
     private Date Due_date;
     private String Title;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Account_id")
     private Account account;

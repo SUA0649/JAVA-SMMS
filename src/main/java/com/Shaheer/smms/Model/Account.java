@@ -1,5 +1,6 @@
 package com.Shaheer.smms.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -15,12 +16,15 @@ public class Account {
     private String Handle;
     private String Status;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "account",cascade = CascadeType.ALL)
     private List<Account_Access> access;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "account",cascade = CascadeType.ALL)
     private List<Subscriptions> subscriptions;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "account",cascade = CascadeType.ALL)
     private List<AssetsTracking> trackings;
 

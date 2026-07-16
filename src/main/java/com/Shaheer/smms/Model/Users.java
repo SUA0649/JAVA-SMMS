@@ -1,4 +1,5 @@
 package com.Shaheer.smms.Model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -16,10 +17,11 @@ public class Users {
     private Date CreatedAt;
     private String Role;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Equipment_Tracking> tracking;
 
-
+    @JsonIgnore
     @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
     private List<Account_Access> access;
 

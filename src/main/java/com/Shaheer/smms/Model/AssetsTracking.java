@@ -1,5 +1,6 @@
 package com.Shaheer.smms.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -17,14 +18,17 @@ public class AssetsTracking {
     private String URL;
     private Date Published_at;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Asset_id")
     private ContentAssets asset;
 
+    @JsonIgnore
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name = "Account_id")
     private Account account;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "tracking",cascade = CascadeType.ALL)
     private List<PerformanceMetrics> metrics;
 

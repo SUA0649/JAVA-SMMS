@@ -1,11 +1,14 @@
 package com.Shaheer.smms.Model;
 
 import com.Shaheer.smms.Model.Campaign;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import org.springframework.stereotype.Component;
 
 @Entity
 @Table(name = "`Content Assets`")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class ContentAssets {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,6 +19,7 @@ public class ContentAssets {
     @Column(name="`Internal Status`")
     private String InternalStatus;
 
+    @JsonIgnore
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name= "Campaign_id")
     private Campaign campaign;

@@ -1,4 +1,5 @@
 package com.Shaheer.smms.Model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -17,12 +18,14 @@ public class Campaign {
     private Date End_date;
     private double Budget;
 
+    @JsonIgnore
     @ManyToMany(mappedBy="sharedAssets")
     private List<Sponsorships> sponsorships = new ArrayList<>();
 
     public Campaign() {
     }
 
+    @JsonIgnore
     @OneToMany(mappedBy = "campaign", cascade = CascadeType.ALL)
     private List<ContentAssets>   Assets;
 

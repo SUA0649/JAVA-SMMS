@@ -1,5 +1,6 @@
 package com.Shaheer.smms.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -17,6 +18,7 @@ public class PerformanceMetrics {
     private double Shares;
     private double Revenue_generated;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Tracking_id")
     private AssetsTracking tracking;

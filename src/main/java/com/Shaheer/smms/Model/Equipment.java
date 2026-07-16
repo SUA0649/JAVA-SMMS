@@ -1,5 +1,6 @@
 package com.Shaheer.smms.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -16,6 +17,7 @@ public class Equipment {
     @Column(name = "`Condition`")
     private String Condition;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "equipment",cascade = CascadeType.ALL)
     private List<Equipment_Tracking> Tracking;
 
