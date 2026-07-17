@@ -26,8 +26,8 @@ public class AssetsService {
         return this.repo.findAll();
     }
 
-    public Optional<ContentAssets> getAssetsById(int id){
-        return this.repo.findById(id);
+    public ContentAssets getAssetsById(int id){
+        return this.repo.findById(id).orElseThrow();
     }
 
     public List<PerformanceMetrics> getAllPerformanceMetrics(){

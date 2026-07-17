@@ -19,7 +19,10 @@ public class Campaign {
     private double Budget;
 
     @JsonIgnore
-    @ManyToMany(mappedBy="sharedAssets")
+    @ManyToMany
+    @JoinTable(name="Campaign_Sponsorships",
+            joinColumns = @JoinColumn(name="Campaign_id"),
+            inverseJoinColumns = @JoinColumn(name="Sponsor_id"))
     private List<Sponsorships> sponsorships = new ArrayList<>();
 
     public Campaign() {

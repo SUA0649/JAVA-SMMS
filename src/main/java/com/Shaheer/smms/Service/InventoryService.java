@@ -24,8 +24,8 @@ public class InventoryService {
         return this.repo.findAll();
     }
 
-    public Optional<Equipment> getEquipmentById(int id){
-        return this.repo.findById(id);
+    public Equipment getEquipmentById(int id){
+        return this.repo.findById(id).orElseThrow();
     }
 
     public List<Users> getUsersByEquipmentid(int id){

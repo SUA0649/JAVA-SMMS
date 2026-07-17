@@ -25,11 +25,8 @@ public class Sponsorships {
     private List<Invoices> invoices;
 
     @JsonIgnore
-    @ManyToMany
-    @JoinTable(name="Campaign_Sponsorships"
-            ,joinColumns = @JoinColumn(name="Sponsor_id"),
-            inverseJoinColumns = @JoinColumn(name="Campaign_id"))
-    private List<Campaign> sharedAssets = new ArrayList<>();
+    @ManyToMany(mappedBy="sponsorships")
+    private List<Campaign> campaigns = new ArrayList<>();
 
     public enum Types{
         YEARLY,
@@ -105,10 +102,10 @@ public class Sponsorships {
     }
 
     public List<Campaign> getCampaigns() {
-        return sharedAssets;
+        return campaigns;
     }
 
     public void setCampaigns(List<Campaign> campaigns) {
-        this.sharedAssets = campaigns;
+        this.campaigns = campaigns;
     }
 }
