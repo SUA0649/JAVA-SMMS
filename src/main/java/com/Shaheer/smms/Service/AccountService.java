@@ -1,10 +1,14 @@
 package com.Shaheer.smms.Service;
 
+import com.Shaheer.smms.Dto.AccountAccessUpdateDTO;
+import com.Shaheer.smms.Dto.AccountUpdateDTO;
+import com.Shaheer.smms.Dto.SubscriptionUpdateDTO;
 import com.Shaheer.smms.Model.*;
 import com.Shaheer.smms.Repository.AccountRepository;
 import com.Shaheer.smms.Repository.Account_AccessRepository;
 import com.Shaheer.smms.Repository.AssetsTrackingRepository;
 import com.Shaheer.smms.Repository.SubscriptionsRepository;
+import com.zaxxer.hikari.util.SuspendResumeLock;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -78,4 +82,43 @@ public class AccountService {
         this.s_repo.deleteById(subscription_id);
     }
 
+    public Account updateAccount(Integer id, AccountUpdateDTO updateDTO){
+        Account existingAccount = this.repo.findById(id).orElseThrow();
+
+        if(updateDTO.getHandle()!=null){
+            existingAccount.setHandle(updateDTO.getHandle());
+        }
+
+        if(updateDTO.getPlatform()!=null){
+            existingAccount.setPlatform(updateDTO.getPlatform());
+        }
+
+        if(updateDTO.getStatus()!=null){
+            existingAccount.setStatus(updateDTO.getStatus());
+        }
+        return this.repo.save(existingAccount);
+    }
+
+    public Account_Access updateAccess(Integer id, AccountAccessUpdateDTO updateDTO){
+        Account_Access existingAccess = this.a_repo.findById(id).orElseThrow();
+
+        if(updateDTO.getPermission_level()!=null){
+            existingAccess.setPermission_level(updateDTO.getPermission_level());
+        }
+
+        return existingAccess;
+    }
+
+    public Subscriptions updateSubscriptions(Integer id, SubscriptionUpdateDTO updateDTO){
+        Subscriptions existingSubscription = this.s_repo.findById(id).orElseThrow();
+
+        if(updateDTO.getCost()!=null){
+            existingSubscription.setCost(updateDTO.getCost());
+        }
+
+        if(updateDTO.getDue_date()!=null){
+            existingSubscription.setDue_date(updateDTO.getDue_date());
+        }
+        return existingSubscription;
+    }
 }

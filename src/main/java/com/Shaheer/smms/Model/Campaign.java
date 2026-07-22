@@ -32,7 +32,7 @@ public class Campaign {
     }
 
     @OneToMany(mappedBy = "campaign", cascade = CascadeType.ALL)
-    private List<ContentAssets>   assets;
+    private List<ContentAssets>  assets;
 
     public Integer getC_id() {
         return c_id;

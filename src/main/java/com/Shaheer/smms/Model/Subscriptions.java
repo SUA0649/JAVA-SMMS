@@ -3,20 +3,22 @@ package com.Shaheer.smms.Model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import org.springframework.cglib.core.Local;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 @Entity
 public class Subscriptions {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "Subscription_id")
     private Integer subscription_id;
 
     // Account_id
-    private Date start_date;
+    private LocalDateTime start_date;
     private double cost;
-    private Date due_date;
+    private LocalDateTime due_date;
     private String title;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // Replaces @JsonIgnore
@@ -27,7 +29,7 @@ public class Subscriptions {
     public Subscriptions() {
     }
 
-    public Subscriptions(Integer subscription_id, Date start_date, double cost, Date due_date, String title, Account account) {
+    public Subscriptions(Integer subscription_id, LocalDateTime start_date, double cost, LocalDateTime due_date, String title, Account account) {
         this.subscription_id = subscription_id;
         this.start_date = start_date;
         this.cost = cost;
@@ -44,11 +46,11 @@ public class Subscriptions {
         this.subscription_id = subscription_id;
     }
 
-    public Date getStart_date() {
+    public LocalDateTime getStart_date() {
         return start_date;
     }
 
-    public void setStart_date(Date start_date) {
+    public void setStart_date(LocalDateTime start_date) {
         this.start_date = start_date;
     }
 
@@ -60,11 +62,11 @@ public class Subscriptions {
         this.cost = cost;
     }
 
-    public Date getDue_date() {
+    public LocalDateTime getDue_date() {
         return due_date;
     }
 
-    public void setDue_date(Date due_date) {
+    public void setDue_date(LocalDateTime due_date) {
         this.due_date = due_date;
     }
 

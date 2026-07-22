@@ -1,5 +1,8 @@
 package com.Shaheer.smms.Controller;
 
+import com.Shaheer.smms.Dto.AccountAccessUpdateDTO;
+import com.Shaheer.smms.Dto.AccountUpdateDTO;
+import com.Shaheer.smms.Dto.SubscriptionUpdateDTO;
 import com.Shaheer.smms.Model.*;
 import com.Shaheer.smms.Service.AccountService;
 import org.apache.coyote.Response;
@@ -73,5 +76,21 @@ public class AccountController {
     public void deleteSubscriptions(@PathVariable Integer id){
         this.service.deleteSubscription(id);
     }
+
+    @PutMapping("/accounts/{id}")
+    public Account updateAccount(@PathVariable Integer id, @RequestBody AccountUpdateDTO account){
+        return this.service.updateAccount(id,account);
+    }
+
+    @PutMapping("/accounts/access/{id}")
+    public Account_Access updateAccountAccess(@PathVariable Integer id, @RequestBody AccountAccessUpdateDTO access){
+        return this.service.updateAccess(id,access);
+    }
+
+    @PutMapping("/subscriptions/{id}")
+    public Subscriptions updateSubscriptions(@PathVariable Integer id, @RequestBody SubscriptionUpdateDTO subscription){
+        return this.service.updateSubscriptions(id,subscription);
+    }
+
 
 }
