@@ -5,6 +5,7 @@ import com.Shaheer.smms.Repository.AccountRepository;
 import com.Shaheer.smms.Repository.Account_AccessRepository;
 import com.Shaheer.smms.Repository.AssetsTrackingRepository;
 import com.Shaheer.smms.Repository.SubscriptionsRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -53,4 +54,28 @@ public class AccountService {
         Account account = this.repo.findById(id).orElseThrow();
         return this.s_repo.findByAccount(account);
     }
+    public Account createNewAccount(Account account){
+            return this.repo.save(account);
+    }
+
+    public Account_Access createNewUserAccess(Account_Access access){
+        return this.a_repo.save(access);
+    }
+
+    public Subscriptions createNewSubscription(Subscriptions subscriptions){
+        return this.s_repo.save(subscriptions);
+    }
+
+    public void deleteAccount(Integer account_id){
+         this.repo.deleteById(account_id);
+    }
+
+    public void deleteAccess(Integer access_id){
+        this.a_repo.deleteById(access_id);
+    }
+
+    public void deleteSubscription(Integer subscription_id){
+        this.s_repo.deleteById(subscription_id);
+    }
+
 }

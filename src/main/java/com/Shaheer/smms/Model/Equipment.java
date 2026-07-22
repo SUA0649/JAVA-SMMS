@@ -9,65 +9,66 @@ import java.util.List;
 
 public class Equipment {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Equipment_id ;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer equipment_id ;
 
-    private String Name;
-    private String Category;
+    private String name;
+    private String category;
     @Column(name = "`Condition`")
-    private String Condition;
+    private String condition;
 
     @JsonIgnore
     @OneToMany(mappedBy = "equipment",cascade = CascadeType.ALL)
-    private List<Equipment_Tracking> Tracking;
+    private List<Equipment_Tracking> tracking;
 
-    public List<Equipment_Tracking> getTracking() {
-        return Tracking;
+    public Equipment() {
     }
 
-    public void setTracking(List<Equipment_Tracking> tracking) {
-        Tracking = tracking;
+    public Integer getEquipment_id() {
+        return equipment_id;
     }
 
-    public Equipment(int equipment_id, String name, String category, String condition, List<Equipment_Tracking> tracking) {
-        Equipment_id = equipment_id;
-        Name = name;
-        Category = category;
-        Condition = condition;
-        Tracking = tracking;
-    }
-
-    public Equipment(){}
-
-    public int getEquipment_id() {
-        return Equipment_id;
-    }
-
-    public void setEquipment_id(int equipment_id) {
-        Equipment_id = equipment_id;
+    public void setEquipment_id(Integer equipment_id) {
+        this.equipment_id = equipment_id;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public String getCategory() {
-        return Category;
+        return category;
     }
 
     public void setCategory(String category) {
-        Category = category;
+        this.category = category;
     }
 
     public String getCondition() {
-        return Condition;
+        return condition;
     }
 
     public void setCondition(String condition) {
-        Condition = condition;
+        this.condition = condition;
+    }
+
+    public List<Equipment_Tracking> getTracking() {
+        return tracking;
+    }
+
+    public void setTracking(List<Equipment_Tracking> tracking) {
+        this.tracking = tracking;
+    }
+
+    public Equipment(Integer equipment_id, String name, String category, String condition, List<Equipment_Tracking> tracking) {
+        this.equipment_id = equipment_id;
+        this.name = name;
+        this.category = category;
+        this.condition = condition;
+        this.tracking = tracking;
     }
 }

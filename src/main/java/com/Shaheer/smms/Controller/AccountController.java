@@ -1,14 +1,11 @@
 package com.Shaheer.smms.Controller;
 
-import com.Shaheer.smms.Model.Account;
-import com.Shaheer.smms.Model.ContentAssets;
-import com.Shaheer.smms.Model.Subscriptions;
-import com.Shaheer.smms.Model.Users;
+import com.Shaheer.smms.Model.*;
 import com.Shaheer.smms.Service.AccountService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.apache.coyote.Response;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -46,4 +43,35 @@ public class AccountController {
     public List<Subscriptions> getSubscriptionsByAccountId(@PathVariable int id){
         return service.getSubscriptionsByAccountId(id);
     }
+
+    @PostMapping("/accounts")
+    public ResponseEntity<Account> createNewAccount(@RequestBody Account account){
+        return new ResponseEntity<>(service.createNewAccount(account),HttpStatus.OK);
+    }
+
+    @PostMapping("/accounts/access")
+    public ResponseEntity<Account_Access> createNewUserAccess(@RequestBody Account_Access access){
+        return new ResponseEntity<>(service.createNewUserAccess(access),HttpStatus.OK);
+    }
+
+    @PostMapping("/subscriptions")
+    public ResponseEntity<Subscriptions> createNewSubscription(@RequestBody Subscriptions subscription){
+        return new ResponseEntity<>(service.createNewSubscription(subscription),HttpStatus.OK);
+    }
+
+    @DeleteMapping("/accounts/{id}")
+    public void deleteAccount(@PathVariable Integer id){
+        this.service.deleteAccount(id);
+    }
+
+    @DeleteMapping("/accounts/access/{id}")
+    public void deleteAccess(@PathVariable Integer id){
+        this.service.deleteAccess(id);
+    }
+
+    @DeleteMapping("/subscriptions/{id}")
+    public void deleteSubscriptions(@PathVariable Integer id){
+        this.service.deleteSubscription(id);
+    }
+
 }

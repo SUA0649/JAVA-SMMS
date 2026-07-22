@@ -6,44 +6,45 @@ import jakarta.persistence.*;
 @Table(name="`Account Access`")
 public class Account_Access {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Access_id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "Access_id")
+    private Integer access_id;
     // User_id
     //Account_id1
-    private String Permission_level;
+    private String permission_level;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="`User_id`")
+    @JoinColumn(name = "`User_id`")
     private Users users;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="`Account_id`")
+    @JoinColumn(name = "`Account_id`")
     private Account account;
 
     public Account_Access() {
     }
 
-    public Account_Access(int access_id, String permission_level, Users users, Account account) {
-        Access_id = access_id;
-        Permission_level = permission_level;
+    public Account_Access(Integer access_id, String permission_level, Users users, Account account) {
+        this.access_id = access_id;
+        this.permission_level = permission_level;
         this.users = users;
         this.account = account;
     }
 
-    public int getAccess_id() {
-        return Access_id;
+    public Integer getAccess_id() {
+        return access_id;
     }
 
-    public void setAccess_id(int access_id) {
-        Access_id = access_id;
+    public void setAccess_id(Integer access_id) {
+        this.access_id = access_id;
     }
 
     public String getPermission_level() {
-        return Permission_level;
+        return permission_level;
     }
 
     public void setPermission_level(String permission_level) {
-        Permission_level = permission_level;
+        this.permission_level = permission_level;
     }
 
     public Users getUsers() {

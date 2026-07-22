@@ -10,22 +10,22 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "`Account_id`")
-    private int Account_id;
+    private Integer account_id;
 
-    private String Platform;
-    private String Handle;
-    private String Status;
+    private String platform;
+    private String handle;
+    private String status;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "account",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<Account_Access> access;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "account",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<Subscriptions> subscriptions;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "account",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<AssetsTracking> trackings;
 
     public List<Account_Access> getAccess() {
@@ -52,49 +52,49 @@ public class Account {
         this.trackings = trackings;
     }
 
-    public Account(int account_id, String platform, String handle, String status, List<Account_Access> access, List<Subscriptions> subscriptions, List<AssetsTracking> trackings) {
-        Account_id = account_id;
-        Platform = platform;
-        Handle = handle;
-        Status = status;
+    public Account(Integer account_id, String platform, String handle, String status, List<Account_Access> access, List<Subscriptions> subscriptions, List<AssetsTracking> trackings) {
+        this.account_id = account_id;
+        this.platform = platform;
+        this.handle = handle;
+        this.status = status;
         this.access = access;
         this.subscriptions = subscriptions;
         this.trackings = trackings;
     }
 
-    public Account(){}
-
-
-
-    public int getAccount_id() {
-        return Account_id;
+    public Account() {
     }
 
-    public void setAccount_id(int account_id) {
-        Account_id = account_id;
+    public Integer getAccount_id() {
+        return account_id;
+    }
+
+    public void setAccount_id(Integer account_id) {
+        this.account_id = account_id;
     }
 
     public String getPlatform() {
-        return Platform;
+        return platform;
     }
 
     public void setPlatform(String platform) {
-        Platform = platform;
+        this.platform = platform;
     }
 
     public String getHandle() {
-        return Handle;
+        return handle;
     }
 
     public void setHandle(String handle) {
-        Handle = handle;
+        this.handle = handle;
     }
 
     public String getStatus() {
-        return Status;
+        return status;
     }
 
     public void setStatus(String status) {
-        Status = status;
+        this.status = status;
     }
 }
+

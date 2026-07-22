@@ -1,13 +1,12 @@
 package com.Shaheer.smms.Controller;
 
+import com.Shaheer.smms.Model.AssetsTracking;
 import com.Shaheer.smms.Model.ContentAssets;
 import com.Shaheer.smms.Model.PerformanceMetrics;
 import com.Shaheer.smms.Service.AssetsService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.AbstractDocument;
 import java.util.List;
 
 @RestController
@@ -42,6 +41,36 @@ public class AssetsController {
     @GetMapping("/{id}/performance")
     public List<PerformanceMetrics> getPerformanceMetricsByAssetId(@PathVariable int id){
         return service.getPerformanceMetricsByAssetId(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteAsset(@PathVariable Integer id){
+        this.service.deleteAsset(id);
+    }
+
+    @DeleteMapping("/tracking/{id}")
+    public void deleteAssetTracking(@PathVariable Integer id){
+        this.service.deleteAssetTracking(id);
+    }
+
+    @DeleteMapping("/performance/{id}")
+    public void deletePerformance(@PathVariable Integer id){
+        this.service.deletePerformance(id);
+    }
+
+    @PostMapping("")
+    public ContentAssets createNewContent(@RequestBody ContentAssets assets){
+        return this.service.createNewContent(assets);
+    }
+
+    @PostMapping("/tracking")
+    public AssetsTracking createNewAssetTracking(@RequestBody AssetsTracking tracking){
+        return this.service.createNewAssetTracking(tracking);
+    }
+
+    @PostMapping("/performance")
+    public PerformanceMetrics createNewPerformance(@RequestBody PerformanceMetrics metrics){
+        return this.service.createNewPerformance(metrics);
     }
 
 }

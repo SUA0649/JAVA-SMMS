@@ -3,19 +3,20 @@ package com.Shaheer.smms.Model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
 public class Invoices {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Invoice_id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer invoice_id;
     @Enumerated(EnumType.STRING)
-    private Types Type;
-    private double Amount;
-    private String Status;
-    private Date Created_at;
-    private Date Due_date;
+    private Types type;
+    private double amount;
+    private String status;
+    private LocalDateTime created_at;
+    private LocalDateTime due_date;
     public enum Types{
         Credit,
         Debit
@@ -25,74 +26,74 @@ public class Invoices {
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="Referal_id")
-    private Sponsorships Referal_id;
+    private Sponsorships referral_id;
 
     public Invoices() {
     }
 
-    public Invoices(int invoice_id, Types type, double amount, String status, Date created_at, Date due_date, Sponsorships referal_id) {
-        Invoice_id = invoice_id;
-        Type = type;
-        Amount = amount;
-        Status = status;
-        Created_at = created_at;
-        Due_date = due_date;
-        Referal_id = referal_id;
+    public Integer getInvoice_id() {
+        return invoice_id;
     }
 
-    public int getInvoice_id() {
-        return Invoice_id;
-    }
-
-    public void setInvoice_id(int invoice_id) {
-        Invoice_id = invoice_id;
+    public void setInvoice_id(Integer invoice_id) {
+        this.invoice_id = invoice_id;
     }
 
     public Types getType() {
-        return Type;
+        return type;
     }
 
     public void setType(Types type) {
-        Type = type;
+        this.type = type;
     }
 
     public double getAmount() {
-        return Amount;
+        return amount;
     }
 
     public void setAmount(double amount) {
-        Amount = amount;
+        this.amount = amount;
     }
 
     public String getStatus() {
-        return Status;
+        return status;
     }
 
     public void setStatus(String status) {
-        Status = status;
+        this.status = status;
     }
 
-    public Date getCreated_at() {
-        return Created_at;
+    public LocalDateTime getCreated_at() {
+        return created_at;
     }
 
-    public void setCreated_at(Date created_at) {
-        Created_at = created_at;
+    public void setCreated_at(LocalDateTime created_at) {
+        this.created_at = created_at;
     }
 
-    public Date getDue_date() {
-        return Due_date;
+    public LocalDateTime getDue_date() {
+        return due_date;
     }
 
-    public void setDue_date(Date due_date) {
-        Due_date = due_date;
+    public void setDue_date(LocalDateTime due_date) {
+        this.due_date = due_date;
     }
 
-    public Sponsorships getReferal_id() {
-        return Referal_id;
+    public Sponsorships getReferral_id() {
+        return referral_id;
     }
 
-    public void setReferal_id(Sponsorships referal_id) {
-        Referal_id = referal_id;
+    public void setReferral_id(Sponsorships referral_id) {
+        this.referral_id = referral_id;
+    }
+
+    public Invoices(Integer invoice_id, Types type, double amount, String status, LocalDateTime created_at, LocalDateTime due_date, Sponsorships referral_id) {
+        this.invoice_id = invoice_id;
+        this.type = type;
+        this.amount = amount;
+        this.status = status;
+        this.created_at = created_at;
+        this.due_date = due_date;
+        this.referral_id = referral_id;
     }
 }

@@ -3,6 +3,7 @@ package com.Shaheer.smms.Model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -10,21 +11,19 @@ import java.util.List;
 @Entity
 public class Sponsorships {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int S_id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer s_id;
 
-    private String Name;
-    private Date Start_date;
-    private Date End_date;
-    private double Budget;
+    private String name;
+    private LocalDateTime start_date;
+    private LocalDateTime end_date;
+    private double budget;
     @Enumerated(EnumType.STRING)
-    private Types Type;
+    private Types type;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "Referal_id",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "referral_id",cascade = CascadeType.ALL)
     private List<Invoices> invoices;
 
-    @JsonIgnore
     @ManyToMany(mappedBy="sponsorships")
     private List<Campaign> campaigns = new ArrayList<>();
 
@@ -37,62 +36,54 @@ public class Sponsorships {
     public Sponsorships() {
     }
 
-    public Sponsorships(int s_id, String name, Date start_date, Date end_date, double budget, Types type) {
-        S_id = s_id;
-        Name = name;
-        Start_date = start_date;
-        End_date = end_date;
-        Budget = budget;
-        Type = type;
+    public Integer getS_id() {
+        return s_id;
     }
 
-    public int getS_id() {
-        return S_id;
-    }
-
-    public void setS_id(int s_id) {
-        S_id = s_id;
+    public void setS_id(Integer s_id) {
+        this.s_id = s_id;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
-    public Date getStart_date() {
-        return Start_date;
+    public LocalDateTime getStart_date() {
+        return start_date;
     }
 
-    public void setStart_date(Date start_date) {
-        Start_date = start_date;
+    public void setStart_date(LocalDateTime start_date) {
+        this.start_date = start_date;
     }
 
-    public Date getEnd_date() {
-        return End_date;
+    public LocalDateTime getEnd_date() {
+        return end_date;
     }
 
-    public void setEnd_date(Date end_date) {
-        End_date = end_date;
+    public void setEnd_date(LocalDateTime end_date) {
+        this.end_date = end_date;
     }
 
     public double getBudget() {
-        return Budget;
+        return budget;
     }
 
     public void setBudget(double budget) {
-        Budget = budget;
+        this.budget = budget;
     }
 
     public Types getType() {
-        return Type;
+        return type;
     }
 
     public void setType(Types type) {
-        Type = type;
+        this.type = type;
     }
+
     public List<Invoices> getInvoices() {
         return invoices;
     }
@@ -106,6 +97,17 @@ public class Sponsorships {
     }
 
     public void setCampaigns(List<Campaign> campaigns) {
+        this.campaigns = campaigns;
+    }
+
+    public Sponsorships(Integer s_id, String name, LocalDateTime start_date, LocalDateTime end_date, double budget, Types type, List<Invoices> invoices, List<Campaign> campaigns) {
+        this.s_id = s_id;
+        this.name = name;
+        this.start_date = start_date;
+        this.end_date = end_date;
+        this.budget = budget;
+        this.type = type;
+        this.invoices = invoices;
         this.campaigns = campaigns;
     }
 }

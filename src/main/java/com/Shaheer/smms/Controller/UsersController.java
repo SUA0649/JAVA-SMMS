@@ -4,6 +4,8 @@ import com.Shaheer.smms.Model.Account;
 import com.Shaheer.smms.Model.Equipment;
 import com.Shaheer.smms.Model.Users;
 import com.Shaheer.smms.Service.UsersService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,4 +39,19 @@ public class UsersController {
     public List<Equipment> getEquipmentebyUserId(@PathVariable int id) {
         return service.getEquipmentebyUserId(id);
     }
+
+    @PostMapping("/users")
+    public Users createNewUser(@RequestBody Users user){
+        return this.service.createNewUser(user);
     }
+
+    @DeleteMapping("/users/{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable Integer id){
+        if(this.service.deleteUser(id)){
+            return ResponseEntity.ok("User deleted succesfully!");
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: Couldn't delete the object of user.");
+            }
+    }
+}

@@ -10,15 +10,14 @@ import java.util.Date;
 public class PerformanceMetrics {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Metric_id;
+    private int metric_id;
     // Tracking_id
-    private Date Date_recorded;
-    private double Views;
-    private double Likes;
-    private double Shares;
-    private double Revenue_generated;
+    private Date date_recorded;
+    private double views;
+    private double likes;
+    private double shares;
+    private double revenue_generated;
 
-    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Tracking_id")
     private AssetsTracking tracking;
@@ -28,51 +27,51 @@ public class PerformanceMetrics {
     }
 
     public int getMetric_id() {
-        return Metric_id;
+        return metric_id;
     }
 
     public void setMetric_id(int metric_id) {
-        Metric_id = metric_id;
+        this.metric_id = metric_id;
     }
 
     public Date getDate_recorded() {
-        return Date_recorded;
+        return date_recorded;
     }
 
     public void setDate_recorded(Date date_recorded) {
-        Date_recorded = date_recorded;
+        this.date_recorded = date_recorded;
     }
 
     public double getViews() {
-        return Views;
+        return views;
     }
 
     public void setViews(double views) {
-        Views = views;
+        this.views = views;
     }
 
     public double getLikes() {
-        return Likes;
+        return likes;
     }
 
     public void setLikes(double likes) {
-        Likes = likes;
+        this.likes = likes;
     }
 
     public double getShares() {
-        return Shares;
+        return shares;
     }
 
     public void setShares(double shares) {
-        Shares = shares;
+        this.shares = shares;
     }
 
     public double getRevenue_generated() {
-        return Revenue_generated;
+        return revenue_generated;
     }
 
     public void setRevenue_generated(double revenue_generated) {
-        Revenue_generated = revenue_generated;
+        this.revenue_generated = revenue_generated;
     }
 
     public AssetsTracking getTracking() {
@@ -84,12 +83,12 @@ public class PerformanceMetrics {
     }
 
     public PerformanceMetrics(int metric_id, Date date_recorded, double views, double likes, double shares, double revenue_generated, AssetsTracking tracking) {
-        Metric_id = metric_id;
-        Date_recorded = date_recorded;
-        Views = views;
-        Likes = likes;
-        Shares = shares;
-        Revenue_generated = revenue_generated;
+        this.metric_id = metric_id;
+        this.date_recorded = date_recorded;
+        this.views = views;
+        this.likes = likes;
+        this.shares = shares;
+        this.revenue_generated = revenue_generated;
         this.tracking = tracking;
     }
 }

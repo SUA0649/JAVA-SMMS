@@ -1,10 +1,11 @@
 package com.Shaheer.smms.Model;
 
-import com.Shaheer.smms.Model.Campaign;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import org.springframework.stereotype.Component;
+
+
+import java.util.List;
 
 @Entity
 @Table(name = "`Content Assets`")
@@ -12,48 +13,55 @@ import org.springframework.stereotype.Component;
 public class ContentAssets {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Asset_id;
+    private Integer asset_id;
     // Campaign_id
-    private String Title;
-    private String Format;
+    private String title;
+    private String format;
     @Column(name="`Internal Status`")
-    private String InternalStatus;
+    private String internalStatus;
 
     @JsonIgnore
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name= "Campaign_id")
     private Campaign campaign;
 
-    public int getAsset_id() {
-        return Asset_id;
+    @JsonIgnore
+    @OneToMany(mappedBy = "asset",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<AssetsTracking> trackingList;
+
+    public ContentAssets() {
     }
 
-    public void setAsset_id(int asset_id) {
-        Asset_id = asset_id;
+    public Integer getAsset_id() {
+        return asset_id;
+    }
+
+    public void setAsset_id(Integer asset_id) {
+        this.asset_id = asset_id;
     }
 
     public String getTitle() {
-        return Title;
+        return title;
     }
 
     public void setTitle(String title) {
-        Title = title;
+        this.title = title;
     }
 
     public String getFormat() {
-        return Format;
+        return format;
     }
 
     public void setFormat(String format) {
-        Format = format;
+        this.format = format;
     }
 
     public String getInternalStatus() {
-        return InternalStatus;
+        return internalStatus;
     }
 
     public void setInternalStatus(String internalStatus) {
-        InternalStatus = internalStatus;
+        this.internalStatus = internalStatus;
     }
 
     public Campaign getCampaign() {
@@ -64,14 +72,20 @@ public class ContentAssets {
         this.campaign = campaign;
     }
 
-    public ContentAssets() {
+    public List<AssetsTracking> getTrackingList() {
+        return trackingList;
     }
 
-    public ContentAssets(int asset_id, String title, String format, String internalStatus, Campaign campaign) {
-        Asset_id = asset_id;
-        Title = title;
-        Format = format;
-        InternalStatus = internalStatus;
+    public void setTrackingList(List<AssetsTracking> trackingList) {
+        this.trackingList = trackingList;
+    }
+
+    public ContentAssets(Integer asset_id, String title, String format, String internalStatus, Campaign campaign, List<AssetsTracking> trackingList) {
+        this.asset_id = asset_id;
+        this.title = title;
+        this.format = format;
+        this.internalStatus = internalStatus;
         this.campaign = campaign;
+        this.trackingList = trackingList;
     }
 }

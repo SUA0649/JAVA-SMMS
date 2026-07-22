@@ -1,7 +1,10 @@
 package com.Shaheer.smms.Model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.springframework.cglib.core.Local;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -10,13 +13,13 @@ import java.util.List;
 @Table(name = "Campaigns")
 public class Campaign {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int C_id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer c_id;
 
-    private String Name;
-    private Date Start_date;
-    private Date End_date;
-    private double Budget;
+    private String name;
+    private LocalDateTime start_date;
+    private LocalDateTime end_date;
+    private double budget;
 
     @JsonIgnore
     @ManyToMany
@@ -28,16 +31,47 @@ public class Campaign {
     public Campaign() {
     }
 
-    @JsonIgnore
     @OneToMany(mappedBy = "campaign", cascade = CascadeType.ALL)
-    private List<ContentAssets>   Assets;
+    private List<ContentAssets>   assets;
 
-    public List<ContentAssets> getAssets() {
-        return Assets;
+    public Integer getC_id() {
+        return c_id;
     }
 
-    public void setAssets(List<ContentAssets> assets) {
-        Assets = assets;
+    public void setC_id(Integer c_id) {
+        this.c_id = c_id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public LocalDateTime getStart_date() {
+        return start_date;
+    }
+
+    public void setStart_date(LocalDateTime start_date) {
+        this.start_date = start_date;
+    }
+
+    public LocalDateTime getEnd_date() {
+        return end_date;
+    }
+
+    public void setEnd_date(LocalDateTime end_date) {
+        this.end_date = end_date;
+    }
+
+    public double getBudget() {
+        return budget;
+    }
+
+    public void setBudget(double budget) {
+        this.budget = budget;
     }
 
     public List<Sponsorships> getSponsorships() {
@@ -48,51 +82,21 @@ public class Campaign {
         this.sponsorships = sponsorships;
     }
 
-    public Campaign(int c_id, String name, Date start_date, Date end_date, double budget) {
-        C_id = c_id;
-        Name = name;
-        Start_date = start_date;
-        End_date = end_date;
-        Budget = budget;
+    public List<ContentAssets> getAssets() {
+        return assets;
     }
 
-    public int getC_id() {
-        return C_id;
+    public void setAssets(List<ContentAssets> assets) {
+        this.assets = assets;
     }
 
-    public void setC_id(int c_id) {
-        C_id = c_id;
-    }
-
-    public String getName() {
-        return Name;
-    }
-
-    public void setName(String name) {
-        Name = name;
-    }
-
-    public Date getStart_date() {
-        return Start_date;
-    }
-
-    public void setStart_date(Date start_date) {
-        Start_date = start_date;
-    }
-
-    public Date getEnd_date() {
-        return End_date;
-    }
-
-    public void setEnd_date(Date end_date) {
-        End_date = end_date;
-    }
-
-    public double getBudget() {
-        return Budget;
-    }
-
-    public void setBudget(double budget) {
-        Budget = budget;
+    public Campaign(Integer c_id, String name, LocalDateTime start_date, LocalDateTime end_date, double budget, List<Sponsorships> sponsorships, List<ContentAssets> assets) {
+        this.c_id = c_id;
+        this.name = name;
+        this.start_date = start_date;
+        this.end_date = end_date;
+        this.budget = budget;
+        this.sponsorships = sponsorships;
+        this.assets = assets;
     }
 }

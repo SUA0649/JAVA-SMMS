@@ -2,10 +2,10 @@ package com.Shaheer.smms.Controller;
 
 import com.Shaheer.smms.Model.Invoices;
 import com.Shaheer.smms.Service.InvoiceService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,5 +26,18 @@ public class InvoiceController {
     @GetMapping("/invoices/{id}")
     public Invoices getInvoicesById(@PathVariable int id){
         return this.service.getInvoicesById(id);
+    }
+
+    @PostMapping("/invoices")
+    public Invoices createNewInvoices(@RequestBody Invoices invoice){ return this.service.createNewInvoice(invoice);}
+
+    @DeleteMapping("/invoices/{id}")
+    public ResponseEntity<String> deleteInvoice(@PathVariable Integer id){
+        if(this.service.deleteInvoice(id)){
+            return ResponseEntity.ok("Invoice was successfully deleted");
+         }
+        else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: Couldn't delete invoice by id.");
+        }
     }
 }

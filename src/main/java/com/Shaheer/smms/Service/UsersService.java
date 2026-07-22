@@ -35,7 +35,6 @@ public class UsersService {
         List<Account_Access>  accessList = a_repo.findByUsers(user);
 
         return accessList.stream().map(Account_Access::getAccount).toList();
-
     }
 
     public List<Equipment> getEquipmentebyUserId(int id){
@@ -43,5 +42,17 @@ public class UsersService {
         List<Equipment_Tracking> trackList = e_repo.findByUser(user);
 
         return trackList.stream().map(Equipment_Tracking::getEquipment).toList();
+    }
+
+    public Users createNewUser(Users user){
+        return this.u_repo.save(user);
+    }
+
+    public boolean deleteUser(Integer id){
+        if(this.u_repo.existsById(id)){
+            this.u_repo.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }

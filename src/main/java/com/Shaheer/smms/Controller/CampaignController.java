@@ -4,10 +4,10 @@ import com.Shaheer.smms.Model.Campaign;
 import com.Shaheer.smms.Model.Invoices;
 import com.Shaheer.smms.Model.Sponsorships;
 import com.Shaheer.smms.Service.CampaignsService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.apache.coyote.Response;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -53,5 +53,35 @@ public class CampaignController {
     @GetMapping("/sponsors/{id}/invoices")
     public List<Invoices> getInvoicesBySponsorId(@PathVariable int id){
         return this.service.getInvoicesBySponsorId(id);
+    }
+
+    @DeleteMapping("/campaign/{id}")
+    public ResponseEntity<String> deleteCampaign(@PathVariable int id ){
+        if(this.service.deleteCampaign(id)){
+            return ResponseEntity.ok("Campaign Deleted Successfully");
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("An error occured while deleting the Campgin via id");
+        }
+    }
+
+    @DeleteMapping("/sponsors/{id}")
+    public ResponseEntity<String> deleteSponsor(@PathVariable int id){
+        if(this.service.deleteSponsorship(id)){
+            return ResponseEntity.ok("Sponsorship deleted Successfully.");
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("An error occured while deleting sponsorship via id");
+        }
+    }
+
+    @PostMapping("/sponsors")
+    public Sponsorships createNewSponsor(@RequestBody Sponsorships sponsor){
+            return this.service.createNewSponsorship(sponsor);
+    }
+
+    @PostMapping("/campaign")
+    public Campaign createNewCampaign(@RequestBody Campaign campaign){
+        return this.service.createNewCampaign(campaign);
     }
 }

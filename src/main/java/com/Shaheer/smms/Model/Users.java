@@ -2,20 +2,21 @@ package com.Shaheer.smms.Model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
 @Entity
 public class Users {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "`User_id`")
-    private int User_id;
+    private Integer user_id;
 
-    private String Name;
-    private String Email;
-    private Date CreatedAt;
-    private String Role;
+    private String name;
+    private String email;
+    private LocalDateTime createdAt;
+    private String role;
 
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
@@ -42,59 +43,56 @@ public class Users {
         this.access = access;
     }
 
-    public Users(int user_id, String name, String email, Date createdAt, String role, List<Equipment_Tracking> tracking, List<Account_Access> access) {
-        User_id = user_id;
-        Name = name;
-        Email = email;
-        CreatedAt = createdAt;
-        Role = role;
+    public Users() {
+    }
+
+    public Users(Integer user_id, String name, String email, LocalDateTime createdAt, String role, List<Equipment_Tracking> tracking, List<Account_Access> access) {
+        this.user_id = user_id;
+        this.name = name;
+        this.email = email;
+        this.createdAt = createdAt;
+        this.role = role;
         this.tracking = tracking;
         this.access = access;
     }
 
-
-
-    public Users() {
-
+    public Integer getUser_id() {
+        return user_id;
     }
 
-    public int getUser_id() {
-        return User_id;
-    }
-
-    public void setUser_id(int user_id) {
-        User_id = user_id;
+    public void setUser_id(Integer user_id) {
+        this.user_id = user_id;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public void setEmail(String email) {
-        Email = email;
+        this.email = email;
     }
 
-    public Date getCreatedAt() {
-        return CreatedAt;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
-        CreatedAt = createdAt;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
     public String getRole() {
-        return Role;
+        return role;
     }
 
     public void setRole(String role) {
-        Role = role;
+        this.role = role;
     }
 }

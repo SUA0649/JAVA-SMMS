@@ -7,6 +7,7 @@ import com.Shaheer.smms.Repository.PerformanceMetricsRepository;
 import org.apache.el.stream.Stream;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.AbstractDocument;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,5 +48,27 @@ public class AssetsService {
         ContentAssets asset = this.repo.findById(id).orElseThrow();
         List<AssetsTracking> assetsTrackingList= this.t_repo.findByAsset(asset);
         return assetsTrackingList.stream().map(AssetsTracking::getAccount).toList();
+    }
+
+    public void deleteAsset(Integer id){
+        this.repo.deleteById(id);
+    }
+    public void deleteAssetTracking(Integer id){
+        this.t_repo.deleteById(id);
+    }
+    public void deletePerformance(Integer id){
+        this.pm_repo.deleteById(id);
+    }
+
+    public ContentAssets createNewContent(ContentAssets assets){
+        return this.repo.save(assets);
+    }
+
+    public AssetsTracking createNewAssetTracking(AssetsTracking tracking){
+        return this.t_repo.save(tracking);
+    }
+
+    public PerformanceMetrics createNewPerformance(PerformanceMetrics metrics){
+        return this.pm_repo.save(metrics);
     }
 }

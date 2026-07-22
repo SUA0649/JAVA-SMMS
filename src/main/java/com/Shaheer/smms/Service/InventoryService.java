@@ -8,7 +8,6 @@ import com.Shaheer.smms.Repository.EquipmentTrackingRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class InventoryService {
@@ -28,11 +27,35 @@ public class InventoryService {
         return this.repo.findById(id).orElseThrow();
     }
 
-    public List<Users> getUsersByEquipmentid(int id){
+    public List<Users> getUsersByEquipment(int id){
         Equipment equipment = this.repo.findById(id).orElseThrow();
 
         List<Equipment_Tracking> equipmentTrackings = t_repo.findByEquipment(equipment);
 
         return equipmentTrackings.stream().map(Equipment_Tracking::getUser).toList();
+    }
+
+    public boolean deleteEquipmentById(Integer id){
+        if(this.repo.existsById(id)){
+            this.repo.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean deleteEquipmentTrackingById(Integer id){
+        if(this.t_repo.existsById(id)){
+            this.t_repo.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
+    public Equipment createNewEquipment(Equipment equipment){
+        return this.repo.save(equipment);
+    }
+
+    public Equipment_Tracking createNewEquipmentsTracking(Equipment_Tracking tracking){
+        return this.t_repo.save(tracking);
     }
 }

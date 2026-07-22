@@ -11,12 +11,12 @@ import java.util.List;
 public class AssetsTracking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Tracking_id;
+    private Integer tracking_id;
 
     //Asset_id
     //Account_id
-    private String URL;
-    private Date Published_at;
+    private String url;
+    private Date published_at;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
@@ -29,7 +29,7 @@ public class AssetsTracking {
     private Account account;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "tracking",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "tracking",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<PerformanceMetrics> metrics;
 
 
@@ -44,37 +44,28 @@ public class AssetsTracking {
         this.metrics = metrics;
     }
 
-    public AssetsTracking(int tracking_id, String URL, Date published_at, ContentAssets asset, Account account, List<PerformanceMetrics> metrics) {
-        Tracking_id = tracking_id;
-        this.URL = URL;
-        Published_at = published_at;
-        this.asset = asset;
-        this.account = account;
-        this.metrics = metrics;
+    public Integer getTracking_id() {
+        return tracking_id;
     }
 
-    public int getTracking_id() {
-        return Tracking_id;
+    public void setTracking_id(Integer tracking_id) {
+        this.tracking_id = tracking_id;
     }
 
-    public void setTracking_id(int tracking_id) {
-        Tracking_id = tracking_id;
+    public String getUrl() {
+        return url;
     }
 
-    public String getURL() {
-        return URL;
-    }
-
-    public void setURL(String URL) {
-        this.URL = URL;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public Date getPublished_at() {
-        return Published_at;
+        return published_at;
     }
 
     public void setPublished_at(Date published_at) {
-        Published_at = published_at;
+        this.published_at = published_at;
     }
 
     public ContentAssets getAsset() {
@@ -91,5 +82,14 @@ public class AssetsTracking {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public AssetsTracking(Integer tracking_id, String url, Date published_at, ContentAssets asset, Account account, List<PerformanceMetrics> metrics) {
+        this.tracking_id = tracking_id;
+        this.url = url;
+        this.published_at = published_at;
+        this.asset = asset;
+        this.account = account;
+        this.metrics = metrics;
     }
 }
