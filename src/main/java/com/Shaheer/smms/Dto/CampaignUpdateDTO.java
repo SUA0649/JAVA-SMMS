@@ -15,7 +15,7 @@ public class CampaignUpdateDTO {
         this.end_date = end_date;
     }
 
-    public double getBudget() {
+    public Double getBudget() {
         return budget;
     }
 

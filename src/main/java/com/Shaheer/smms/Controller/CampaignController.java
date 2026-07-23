@@ -1,5 +1,7 @@
 package com.Shaheer.smms.Controller;
 
+import com.Shaheer.smms.Dto.CampaignUpdateDTO;
+import com.Shaheer.smms.Dto.SponsorshipUpdateDTO;
 import com.Shaheer.smms.Model.Campaign;
 import com.Shaheer.smms.Model.Invoices;
 import com.Shaheer.smms.Model.Sponsorships;
@@ -20,12 +22,12 @@ public class CampaignController {
         this.service = service;
     }
 
-    @GetMapping("/campaigns")
+    @GetMapping("/campaign")
     public List<Campaign> getALlCampaigns(){
         return this.service.getAllCampaigns();
     }
 
-    @GetMapping("/campaigns/{id}")
+    @GetMapping("/campaign/{id}")
     public Campaign getCampaignById(@PathVariable int id){
         return this.service.getCampaignById(id).orElseThrow();
     }
@@ -83,5 +85,15 @@ public class CampaignController {
     @PostMapping("/campaign")
     public Campaign createNewCampaign(@RequestBody Campaign campaign){
         return this.service.createNewCampaign(campaign);
+    }
+
+    @PutMapping("/sponsors/{id}")
+    public Sponsorships updateSponsor(@PathVariable Integer id, @RequestBody SponsorshipUpdateDTO updateDTO){
+        return this.service.updateSponsorship(id,updateDTO);
+    }
+
+    @PutMapping("/campaign/{id}")
+    public Campaign updateCampaign(@PathVariable Integer id, @RequestBody CampaignUpdateDTO updateDTO){
+        return this.service.updateCampaign(id,updateDTO);
     }
 }

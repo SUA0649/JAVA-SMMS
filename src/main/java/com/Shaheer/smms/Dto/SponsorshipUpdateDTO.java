@@ -15,7 +15,7 @@ public class SponsorshipUpdateDTO {
         this.name = name;
     }
 
-    public double getBudget() {
+    public Double getBudget() {
         return budget;
     }
 

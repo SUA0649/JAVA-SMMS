@@ -1,5 +1,7 @@
 package com.Shaheer.smms.Controller;
 
+import com.Shaheer.smms.Dto.EquipmentTrackingUpdateDTO;
+import com.Shaheer.smms.Dto.EquipmentUpdateDTO;
 import com.Shaheer.smms.Model.Equipment;
 import com.Shaheer.smms.Model.Equipment_Tracking;
 import com.Shaheer.smms.Model.Users;
@@ -63,5 +65,15 @@ public class InventoryController {
     @PostMapping("/equipment/tracking")
     public Equipment_Tracking createNewEquipmentTracking(@RequestBody Equipment_Tracking tracking){
         return this.service.createNewEquipmentsTracking(tracking);
+    }
+
+    @PutMapping("/equipment/{id}")
+    public Equipment updateEquipment(@PathVariable Integer id, @RequestBody EquipmentUpdateDTO updateDTO){
+        return this.service.updateEquipment(id,updateDTO);
+    }
+
+    @PutMapping("/equipment/tracking/{id}")
+    public Equipment_Tracking updateEquipmentTracking(@PathVariable Integer id, @RequestBody EquipmentTrackingUpdateDTO updateDTO){
+        return this.service.updateEquipmentTracking(id,updateDTO);
     }
 }

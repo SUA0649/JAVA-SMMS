@@ -1,5 +1,6 @@
 package com.Shaheer.smms.Controller;
 
+import com.Shaheer.smms.Dto.UsersUpdateDTO;
 import com.Shaheer.smms.Model.Account;
 import com.Shaheer.smms.Model.Equipment;
 import com.Shaheer.smms.Model.Users;
@@ -53,5 +54,10 @@ public class UsersController {
         else{
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: Couldn't delete the object of user.");
             }
+    }
+
+    @PutMapping("/users/{id}")
+    public Users updateUser(@PathVariable Integer id, @RequestBody UsersUpdateDTO updateDTO){
+        return this.service.updateUser(id,updateDTO);
     }
 }

@@ -1,5 +1,6 @@
 package com.Shaheer.smms.Service;
 
+import com.Shaheer.smms.Dto.UsersUpdateDTO;
 import com.Shaheer.smms.Model.*;
 import com.Shaheer.smms.Repository.Account_AccessRepository;
 import com.Shaheer.smms.Repository.EquipmentTrackingRepository;
@@ -54,5 +55,20 @@ public class UsersService {
             return true;
         }
         return false;
+    }
+
+    public Users updateUser(Integer id, UsersUpdateDTO updateDTO){
+        Users existingUser = this.u_repo.findById(id).orElseThrow();
+
+        if(updateDTO.getName()!=null)
+            existingUser.setName(updateDTO.getName());
+
+        if(updateDTO.getEmail()!=null)
+            existingUser.setEmail(updateDTO.getName());
+
+        if(updateDTO.getRole()!=null)
+            existingUser.setRole(updateDTO.getRole());
+
+        return existingUser;
     }
 }

@@ -1,5 +1,7 @@
 package com.Shaheer.smms.Service;
 
+import com.Shaheer.smms.Dto.EquipmentTrackingUpdateDTO;
+import com.Shaheer.smms.Dto.EquipmentUpdateDTO;
 import com.Shaheer.smms.Model.Equipment;
 import com.Shaheer.smms.Model.Equipment_Tracking;
 import com.Shaheer.smms.Model.Users;
@@ -57,5 +59,29 @@ public class InventoryService {
 
     public Equipment_Tracking createNewEquipmentsTracking(Equipment_Tracking tracking){
         return this.t_repo.save(tracking);
+    }
+
+    public Equipment updateEquipment(Integer id, EquipmentUpdateDTO updateDTO){
+        Equipment existingEquipment = this.repo.findById(id).orElseThrow();
+
+        if(updateDTO.getCategory()!=null)
+            existingEquipment.setCategory(updateDTO.getCategory());
+
+        if(updateDTO.getName()!=null)
+            existingEquipment.setName(updateDTO.getName());
+
+        if(updateDTO.getCondition()!=null)
+            existingEquipment.setCondition(updateDTO.getCondition());
+
+        return existingEquipment;
+    }
+
+    public Equipment_Tracking updateEquipmentTracking(Integer id, EquipmentTrackingUpdateDTO updateDTO){
+        Equipment_Tracking existingTracking = this.t_repo.findById(id).orElseThrow();
+
+        if(updateDTO.getDate_returned()!=null)
+            existingTracking.setDate_returned(updateDTO.getDate_returned());
+
+        return existingTracking;
     }
 }

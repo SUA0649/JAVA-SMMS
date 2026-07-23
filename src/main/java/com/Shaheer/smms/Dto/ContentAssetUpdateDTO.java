@@ -2,7 +2,7 @@ package com.Shaheer.smms.Dto;
 
 public class ContentAssetUpdateDTO {
     private String title;
-    private String InternalStatus;
+    private String internalStatus;
 
     public String getTitle() {
         return title;
@@ -13,10 +13,10 @@ public class ContentAssetUpdateDTO {
     }
 
     public String getInternalStatus() {
-        return InternalStatus;
+        return internalStatus;
     }
 
     public void setInternalStatus(String internalStatus) {
-        InternalStatus = internalStatus;
+        this.internalStatus = internalStatus;
     }
 }

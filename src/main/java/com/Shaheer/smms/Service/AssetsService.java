@@ -1,5 +1,7 @@
 package com.Shaheer.smms.Service;
 
+import com.Shaheer.smms.Dto.AssetsTrackingUpdateDTO;
+import com.Shaheer.smms.Dto.ContentAssetUpdateDTO;
 import com.Shaheer.smms.Model.*;
 import com.Shaheer.smms.Repository.AssetsTrackingRepository;
 import com.Shaheer.smms.Repository.ContentAssetsRepository;
@@ -70,5 +72,29 @@ public class AssetsService {
 
     public PerformanceMetrics createNewPerformance(PerformanceMetrics metrics){
         return this.pm_repo.save(metrics);
+    }
+
+    public ContentAssets updateAsset(Integer id, ContentAssetUpdateDTO updateDTO){
+        ContentAssets existingAsset = this.repo.findById(id).orElseThrow();
+
+        if(updateDTO.getInternalStatus()!=null){
+            existingAsset.setInternalStatus(updateDTO.getInternalStatus());
+        }
+
+        if(updateDTO.getTitle()!=null){
+            existingAsset.setTitle(updateDTO.getTitle());
+        }
+
+        return existingAsset;
+    }
+
+    public AssetsTracking updateassettracking(Integer id, AssetsTrackingUpdateDTO updateDTO){
+        AssetsTracking existingTracking = this.t_repo.findById(id).orElseThrow();
+
+        if(updateDTO.getUrl()!=null){
+            existingTracking.setUrl(updateDTO.getUrl());
+        }
+
+        return existingTracking;
     }
 }

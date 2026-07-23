@@ -1,5 +1,7 @@
 package com.Shaheer.smms.Controller;
 
+import com.Shaheer.smms.Dto.AssetsTrackingUpdateDTO;
+import com.Shaheer.smms.Dto.ContentAssetUpdateDTO;
 import com.Shaheer.smms.Model.AssetsTracking;
 import com.Shaheer.smms.Model.ContentAssets;
 import com.Shaheer.smms.Model.PerformanceMetrics;
@@ -71,6 +73,16 @@ public class AssetsController {
     @PostMapping("/performance")
     public PerformanceMetrics createNewPerformance(@RequestBody PerformanceMetrics metrics){
         return this.service.createNewPerformance(metrics);
+    }
+
+    @PutMapping("/{id}")
+    public ContentAssets updateAssets(@PathVariable Integer id, @RequestBody ContentAssetUpdateDTO updateDTO){
+        return this.service.updateAsset(id,updateDTO);
+    }
+
+    @PutMapping("/tracking/{id}")
+    public AssetsTracking updateAssettracking(@PathVariable Integer id, @RequestBody AssetsTrackingUpdateDTO updateDTO){
+        return this.service.updateassettracking(id,updateDTO);
     }
 
 }

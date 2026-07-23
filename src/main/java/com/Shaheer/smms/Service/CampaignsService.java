@@ -1,5 +1,7 @@
 package com.Shaheer.smms.Service;
 
+import com.Shaheer.smms.Dto.CampaignUpdateDTO;
+import com.Shaheer.smms.Dto.SponsorshipUpdateDTO;
 import com.Shaheer.smms.Model.Campaign;
 import com.Shaheer.smms.Model.Invoices;
 import com.Shaheer.smms.Model.Sponsorships;
@@ -75,5 +77,36 @@ public class CampaignsService {
 
     public Sponsorships createNewSponsorship(Sponsorships sponsor){
         return this.s_repo.save(sponsor);
+    }
+
+    public Campaign updateCampaign(Integer id, CampaignUpdateDTO updateDTO){
+        Campaign existingCampaign = this.repo.findById(id).orElseThrow();
+
+        if(updateDTO.getEnd_date()!=null)
+            existingCampaign.setEnd_date(updateDTO.getEnd_date());
+
+        if(updateDTO.getName()!=null)
+            existingCampaign.setName(updateDTO.getName());
+
+        if(updateDTO.getBudget()!=null)
+            existingCampaign.setBudget(updateDTO.getBudget());
+
+        return existingCampaign;
+    }
+
+    public Sponsorships updateSponsorship(Integer id, SponsorshipUpdateDTO updateDTO){
+        Sponsorships existingSponsorship = this.s_repo.findById(id).orElseThrow();
+
+        if(updateDTO.getName()!=null)
+            existingSponsorship.setName(updateDTO.getName());
+
+        if(updateDTO.getBudget()!=null)
+            existingSponsorship.setBudget(updateDTO.getBudget());
+
+        if(updateDTO.getType()!=null)
+            existingSponsorship.setType(updateDTO.getType());
+
+        return existingSponsorship;
+
     }
 }
