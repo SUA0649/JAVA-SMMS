@@ -9,12 +9,14 @@ import com.Shaheer.smms.Service.InventoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1")
+@PreAuthorize("hasAnyRole('USER','ADMIN','MANAGER')")
 public class InventoryController {
     private final InventoryService service;
 

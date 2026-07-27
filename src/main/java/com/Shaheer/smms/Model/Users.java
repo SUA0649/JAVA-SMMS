@@ -18,6 +18,14 @@ public class Users {
     private LocalDateTime createdAt;
     private String role;
 
+    public AuthUser getAuthUser() {
+        return authUser;
+    }
+
+    public void setAuthUser(AuthUser authUser) {
+        this.authUser = authUser;
+    }
+
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Equipment_Tracking> tracking;
@@ -26,6 +34,9 @@ public class Users {
     @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
     private List<Account_Access> access;
 
+    @OneToOne
+    @JoinColumn(name = "auth_id", referencedColumnName = "id")
+    private AuthUser authUser;
 
     public List<Equipment_Tracking> getTracking() {
         return tracking;

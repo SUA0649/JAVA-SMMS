@@ -7,6 +7,7 @@ import com.Shaheer.smms.Model.Users;
 import com.Shaheer.smms.Service.UsersService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1")
+@PreAuthorize("hasAnyRole('USER','ADMIN','VIEWER','MANAGER')")
 public class UsersController {
     private final UsersService service;
 
@@ -41,11 +43,13 @@ public class UsersController {
         return service.getEquipmentebyUserId(id);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
     @PostMapping("/users")
     public Users createNewUser(@RequestBody Users user){
         return this.service.createNewUser(user);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping("/users/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable Integer id){
         if(this.service.deleteUser(id)){
@@ -56,6 +60,7 @@ public class UsersController {
             }
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
     @PutMapping("/users/{id}")
     public Users updateUser(@PathVariable Integer id, @RequestBody UsersUpdateDTO updateDTO){
         return this.service.updateUser(id,updateDTO);

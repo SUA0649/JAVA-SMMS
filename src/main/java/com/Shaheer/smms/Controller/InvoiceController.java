@@ -5,12 +5,14 @@ import com.Shaheer.smms.Service.InvoiceService;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1")
+@PreAuthorize("hasAnyRole('USER','ADMIN','MANAGER')")
 public class InvoiceController {
     private final InvoiceService service;
 
@@ -28,9 +30,11 @@ public class InvoiceController {
         return this.service.getInvoicesById(id);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
     @PostMapping("/invoices")
     public Invoices createNewInvoices(@RequestBody Invoices invoice){ return this.service.createNewInvoice(invoice);}
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping("/invoices/{id}")
     public ResponseEntity<String> deleteInvoice(@PathVariable Integer id){
         if(this.service.deleteInvoice(id)){

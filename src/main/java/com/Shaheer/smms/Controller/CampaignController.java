@@ -9,12 +9,14 @@ import com.Shaheer.smms.Service.CampaignsService;
 import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1")
+@PreAuthorize("hasAnyRole('USER','ADMIN','VIEWER','MANAGER')")
 public class CampaignController {
     private final CampaignsService service;
 
@@ -57,6 +59,7 @@ public class CampaignController {
         return this.service.getInvoicesBySponsorId(id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/campaign/{id}")
     public ResponseEntity<String> deleteCampaign(@PathVariable int id ){
         if(this.service.deleteCampaign(id)){
@@ -67,6 +70,7 @@ public class CampaignController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/sponsors/{id}")
     public ResponseEntity<String> deleteSponsor(@PathVariable int id){
         if(this.service.deleteSponsorship(id)){
@@ -77,21 +81,25 @@ public class CampaignController {
         }
     }
 
+    @PreAuthorize("hasAnyRole('USER','ADMIN','MANAGER')")
     @PostMapping("/sponsors")
     public Sponsorships createNewSponsor(@RequestBody Sponsorships sponsor){
             return this.service.createNewSponsorship(sponsor);
     }
 
+    @PreAuthorize("hasAnyRole('USER','ADMIN','MANAGER')")
     @PostMapping("/campaign")
     public Campaign createNewCampaign(@RequestBody Campaign campaign){
         return this.service.createNewCampaign(campaign);
     }
 
+    @PreAuthorize("hasAnyRole('USER','ADMIN','MANAGER')")
     @PutMapping("/sponsors/{id}")
     public Sponsorships updateSponsor(@PathVariable Integer id, @RequestBody SponsorshipUpdateDTO updateDTO){
         return this.service.updateSponsorship(id,updateDTO);
     }
 
+    @PreAuthorize("hasAnyRole('USER','ADMIN','MANAGER')")
     @PutMapping("/campaign/{id}")
     public Campaign updateCampaign(@PathVariable Integer id, @RequestBody CampaignUpdateDTO updateDTO){
         return this.service.updateCampaign(id,updateDTO);
