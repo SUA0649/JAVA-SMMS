@@ -91,7 +91,7 @@ public class CampaignsService {
         if(updateDTO.getBudget()!=null)
             existingCampaign.setBudget(updateDTO.getBudget());
 
-        return existingCampaign;
+        return this.repo.save(existingCampaign);
     }
 
     public Sponsorships updateSponsorship(Integer id, SponsorshipUpdateDTO updateDTO){
@@ -106,7 +106,7 @@ public class CampaignsService {
         if(updateDTO.getType()!=null)
             existingSponsorship.setType(updateDTO.getType());
 
-        return existingSponsorship;
+        return this.s_repo.save(existingSponsorship);
 
     }
 }

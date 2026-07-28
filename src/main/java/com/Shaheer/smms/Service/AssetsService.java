@@ -85,7 +85,7 @@ public class AssetsService {
             existingAsset.setTitle(updateDTO.getTitle());
         }
 
-        return existingAsset;
+        return this.repo.save(existingAsset);
     }
 
     public AssetsTracking updateassettracking(Integer id, AssetsTrackingUpdateDTO updateDTO){
@@ -95,6 +95,6 @@ public class AssetsService {
             existingTracking.setUrl(updateDTO.getUrl());
         }
 
-        return existingTracking;
+        return this.t_repo.save(existingTracking);
     }
 }

@@ -73,7 +73,7 @@ public class InventoryService {
         if(updateDTO.getCondition()!=null)
             existingEquipment.setCondition(updateDTO.getCondition());
 
-        return existingEquipment;
+        return this.repo.save(existingEquipment);
     }
 
     public Equipment_Tracking updateEquipmentTracking(Integer id, EquipmentTrackingUpdateDTO updateDTO){
@@ -82,6 +82,6 @@ public class InventoryService {
         if(updateDTO.getDate_returned()!=null)
             existingTracking.setDate_returned(updateDTO.getDate_returned());
 
-        return existingTracking;
+        return this.t_repo.save(existingTracking);
     }
 }
