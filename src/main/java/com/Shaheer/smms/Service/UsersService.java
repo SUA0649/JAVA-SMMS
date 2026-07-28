@@ -69,6 +69,6 @@ public class UsersService {
         if(updateDTO.getRole()!=null)
             existingUser.setRole(updateDTO.getRole());
 
-        return existingUser;
+        return this.u_repo.save(existingUser);
     }
 }

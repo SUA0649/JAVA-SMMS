@@ -106,7 +106,7 @@ public class AccountService {
             existingAccess.setPermission_level(updateDTO.getPermission_level());
         }
 
-        return existingAccess;
+        return this.a_repo.save(existingAccess);
     }
 
     public Subscriptions updateSubscriptions(Integer id, SubscriptionUpdateDTO updateDTO){
@@ -119,6 +119,6 @@ public class AccountService {
         if(updateDTO.getDue_date()!=null){
             existingSubscription.setDue_date(updateDTO.getDue_date());
         }
-        return existingSubscription;
+        return this.s_repo.save(existingSubscription);
     }
 }

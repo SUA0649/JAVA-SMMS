@@ -18,15 +18,20 @@ public class JWTService {
     private static final String SECRET_KEY = "VGhpcyBJcyBBIFZlcnkgU2VjdXJlIEFuZCBMb25nIFNlY3JldCBLZXkgRm9yIFNNTVM=";
 
     public String generateToken(UserDetails userdetails){
+        java.util.HashMap<String, Object> claims = new java.util.HashMap<>();
+
+        if (userdetails instanceof com.Shaheer.smms.Model.AuthUser) {
+            claims.put("role", ((com.Shaheer.smms.Model.AuthUser) userdetails).getRole().name());
+        }
+
         return Jwts.builder()
-                .claims(new HashMap<>())
+                .claims(claims)
                 .subject(userdetails.getUsername())
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis()+1000*60*60*24))
                 .signWith(getSignInKey())
                 .compact();
     }
-
 
 
     public String extractUsername(String token){
