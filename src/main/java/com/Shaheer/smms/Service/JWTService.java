@@ -1,9 +1,11 @@
 package com.Shaheer.smms.Service;
 
+import com.Shaheer.smms.Model.AuthUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -15,13 +17,14 @@ import java.util.function.Function;
 
 @Service
 public class JWTService {
-    private static final String SECRET_KEY = "VGhpcyBJcyBBIFZlcnkgU2VjdXJlIEFuZCBMb25nIFNlY3JldCBLZXkgRm9yIFNNTVM=";
+    @Value("${smms.token}")
+    private String SECRET_KEY;
 
     public String generateToken(UserDetails userdetails){
-        java.util.HashMap<String, Object> claims = new java.util.HashMap<>();
+        HashMap<String, Object> claims = new HashMap<>();
 
-        if (userdetails instanceof com.Shaheer.smms.Model.AuthUser) {
-            claims.put("role", ((com.Shaheer.smms.Model.AuthUser) userdetails).getRole().name());
+        if (userdetails instanceof AuthUser) {
+            claims.put("role", ((AuthUser) userdetails).getRole().name());
         }
 
         return Jwts.builder()
