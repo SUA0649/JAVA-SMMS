@@ -19,6 +19,8 @@ jobs:
           java-version: '26' 
           distribution: 'temurin'
           cache: maven
+      - name: Make mvnw executable
+        run: chmod +x mvnw
 
       - name: Build with Maven
         run: ./mvnw clean package -DskipTests
@@ -33,11 +35,13 @@ jobs:
           target: "/home/ubuntu/smms/JAVA-SMMS"
           strip_components: 1
 
-      - name: Restart Background Service
+      - name: Execute Blue-Green Swap
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USERNAME }}
-          key: ${{ secrets.EC2_SSH_KEY }}
-          script: |
-            sudo systemctl restart smms
+            host: ${{ secrets.EC2_HOST }}
+            username: ${{ secrets.EC2_USERNAME }}
+            key: ${{ secrets.EC2_SSH_KEY }}
+            script: |
+              mv /home/ubuntu/smms/*.jar /home/ubuntu/smms/target-new.jar
+              /home/ubuntu/deploy-backend.sh
+            
