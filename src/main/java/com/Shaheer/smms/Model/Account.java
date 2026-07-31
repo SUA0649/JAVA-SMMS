@@ -86,6 +86,7 @@ public class Account {
     }
 
     public void setHandle(String handle) {
+        System.out.println("Hello, from handle");
         this.handle = handle;
     }
 
