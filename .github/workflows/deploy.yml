@@ -4,10 +4,12 @@ on:
   push:
     branches:
       - master
+  workflow_dispatch: # Kept this so you can trigger it manually
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 10 # Safety net to prevent infinite billing if the server hangs
 
     steps:
       - name: Checkout Code
@@ -16,32 +18,60 @@ jobs:
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
-          java-version: '26' 
+          java-version: '26'
           distribution: 'temurin'
           cache: maven
+
       - name: Make mvnw executable
         run: chmod +x mvnw
 
       - name: Build with Maven
         run: ./mvnw clean package -DskipTests
 
-      - name: Transfer JAR to EC2
+      # ==========================================
+      # INSTANCE 1: TRANSFER & SWAP
+      # ==========================================
+      - name: Transfer JAR to Instance 1
         uses: appleboy/scp-action@master
         with:
-          host: ${{ secrets.EC2_HOST }}
+          host: ${{ secrets.EC2_HOST_1 }}
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
           source: "target/smms-0.0.1-SNAPSHOT.jar"
           target: "/home/ubuntu/smms"
           strip_components: 1
 
-      - name: Execute Blue-Green Swap
+      - name: Execute Swap on Instance 1
         uses: appleboy/ssh-action@master
         with:
-            host: ${{ secrets.EC2_HOST }}
-            username: ${{ secrets.EC2_USERNAME }}
-            key: ${{ secrets.EC2_SSH_KEY }}
-            script: |
-              mv /home/ubuntu/smms/smms-0.0.1-SNAPSHOT.jar /home/ubuntu/smms/target-new.jar
-              /home/ubuntu/deploy-backend.sh
-            
+          host: ${{ secrets.EC2_HOST_1 }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            mv /home/ubuntu/smms/smms-0.0.1-SNAPSHOT.jar /home/ubuntu/smms/target-new.jar
+            sudo chmod +x /home/ubuntu/deploy-backend.sh
+            /home/ubuntu/deploy-backend.sh
+
+      # ==========================================
+      # INSTANCE 2: TRANSFER & SWAP
+      # ==========================================
+      - name: Transfer JAR to Instance 2
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.EC2_HOST_2 }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          source: "target/smms-0.0.1-SNAPSHOT.jar"
+          target: "/home/ubuntu/smms"
+          strip_components: 1
+
+      - name: Execute Swap on Instance 2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST_2 }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            mv /home/ubuntu/smms/smms-0.0.1-SNAPSHOT.jar /home/ubuntu/smms/target-new.jar
+            sudo chmod +x /home/ubuntu/deploy-backend.sh
+            /home/ubuntu/deploy-backend.sh
