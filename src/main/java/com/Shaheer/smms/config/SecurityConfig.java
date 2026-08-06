@@ -88,7 +88,7 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
 
         // Allow your React frontend URL (e.g., localhost:3000 or 5173 for Vite)
-        configuration.setAllowedOrigins(List.of("http://localhost:3000", "http://localhost:5173","http://34.226.205.162","http://98.84.152.26"));
+        configuration.setAllowedOrigins(List.of("http://localhost:3000", "http://localhost:5173","http://34.226.205.162","http://98.84.152.26","http://smms-load-balancer-701955922.us-east-1.elb.amazonaws.com"));
 
         // Explicitly allow PUT and other methods
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
