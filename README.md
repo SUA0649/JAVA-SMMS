@@ -4,7 +4,7 @@
 # JAVA-SMMS — Backend
 
 > Spring Boot REST API for the Social Media Management System (SMMS ERP Dashboard).
-
+![Architecture Diagram](./architecture.png)
 ---
 
 ## Table of Contents
